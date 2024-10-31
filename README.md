@@ -1,5 +1,5 @@
 # Data logging example
-This repository shows an example of logging relevant data of chatbot conversations.
+This repository shows an example of logging and analysing relevant data of chatbot conversations.
 
 ## Installation
 1. **Clone the Repository**
