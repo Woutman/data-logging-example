@@ -5,6 +5,7 @@ from openai.types import CompletionUsage
 from users import create_users, User
 from gpt.gpt_interface import query_gpt
 from gpt.gpt_instructions import INSTRUCTIONS_CHATBOT
+from loggers import log_data
 
 
 def generate_messages(user_instructions: str, message_history: list[dict[str, str]] | None) -> list[dict[str, str]]:
@@ -41,7 +42,7 @@ def invert_roles(messages: list[dict[str, str]]) -> list[dict[str, str]]:
     
     return messages
 
-
+@log_data
 def simulate_conversation(user: User) -> tuple[list[dict[str, str]], list[CompletionUsage]]:
     if not user.instructions:
         raise ValueError("User has no instructions assigned.")
@@ -67,7 +68,7 @@ def simulate_conversation(user: User) -> tuple[list[dict[str, str]], list[Comple
 def main():
     user_count = 10
     users = create_users(user_count)
-    simulate_conversation(users[0])
+    simulate_conversation(user=users[9])
 
 
 if __name__ == "__main__":
