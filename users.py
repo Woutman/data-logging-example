@@ -3,6 +3,7 @@ import math
 
 from gpt.gpt_instructions import INSTRUCTIONS_HELPFUL_CLIENT, INSTRUCTIONS_LOST_CLIENT, INSTRUCTIONS_UNHELPFUL_CLIENT
 
+
 @dataclass
 class User:
     id: int

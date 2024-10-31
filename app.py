@@ -1,46 +1,10 @@
-import copy
-
 from openai.types import CompletionUsage
 
 from users import create_users, User
 from gpt.gpt_interface import query_gpt
-from gpt.gpt_instructions import INSTRUCTIONS_CHATBOT
+from messages import generate_messages
 from loggers import log_data
 
-
-def generate_messages(user_instructions: str, message_history: list[dict[str, str]] | None) -> list[dict[str, str]]:
-    if not message_history:
-        input_messages = [
-            {"role": "system", "content": user_instructions},
-            {"role": "user", "content": "Generate an opening message."}
-        ]
-
-        client_input, _ = query_gpt(messages=input_messages)
-
-        output_messages = [
-            {"role": "system", "content": INSTRUCTIONS_CHATBOT},
-            {"role": "user", "content": client_input}
-        ]
-    else:
-        message_history_inverted = invert_roles(copy.deepcopy(message_history))
-        input_messages = [{"role": "system", "content": user_instructions}] + message_history_inverted[1:] + [{"role": "user", "content": "Generate your next message"}]
-
-        client_input, _ = query_gpt(messages=input_messages)
-
-        output_messages = [{"role": "system", "content": INSTRUCTIONS_CHATBOT}] + message_history[1:] + [{"role": "user", "content": client_input}]
-
-    # print(f"USER: {client_input}")
-    return output_messages
-
-
-def invert_roles(messages: list[dict[str, str]]) -> list[dict[str, str]]:
-    for message in messages:
-        if message["role"] == "user":
-            message["role"] = "assistant"
-        elif message["role"] == "assistant":
-            message["role"] = "user"
-    
-    return messages
 
 @log_data
 def simulate_conversation(user: User) -> tuple[list[dict[str, str]], list[CompletionUsage]]:
@@ -65,16 +29,13 @@ def simulate_conversation(user: User) -> tuple[list[dict[str, str]], list[Comple
     return message_history, usages
 
 
-def main():
+if __name__ == "__main__":
     import random
 
     user_count = 10
     users = create_users(user_count)
 
-    for _ in range(90):
+    num_simulations = 100
+    for _ in range(num_simulations):
         user = users[random.randint(0, user_count - 1)]
         simulate_conversation(user=user)
-
-
-if __name__ == "__main__":
-    main()

@@ -10,7 +10,7 @@ sns.set_theme()
 COST_INPUT_TOKENS_DOLLARS = 2.5 / 1_000_000
 COST_OUTPUT_TOKENS_DOLLARS = 10 / 1_000_000
 
-path_to_data = "data.csv"
+path_to_data = "data/data.csv"
 df = pd.read_csv(path_to_data, index_col=0)
 
 
@@ -20,12 +20,24 @@ def prep_data(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def plot_cost_per_user(df: pd.DataFrame) -> None:
-    cost_per_user = df.groupby('username', as_index=False)['cost_dollars'].sum()
+def plot_total_cost_per_user(df: pd.DataFrame) -> None:
+    total_cost_per_user = df.groupby('username', as_index=False)['cost_dollars'].sum()
 
     plt.figure(figsize=(10, 6))
-    sns.barplot(data=cost_per_user, x='username', y='cost_dollars') # type: ignore
+    sns.barplot(data=total_cost_per_user, x='username', y='cost_dollars') # type: ignore
     plt.title('Total Cost per User')
+    plt.xlabel('Username')
+    plt.ylabel('Cost in Dollars')
+    plt.xticks(rotation=45)
+    plt.show()
+
+
+def plot_average_cost_per_user(df: pd.DataFrame) -> None:
+    avg_cost_per_user = df.groupby('username', as_index=False)['cost_dollars'].mean()
+
+    plt.figure(figsize=(10, 6))
+    sns.barplot(data=avg_cost_per_user, x='username', y='cost_dollars') # type: ignore
+    plt.title('Average Cost per User')
     plt.xlabel('Username')
     plt.ylabel('Cost in Dollars')
     plt.xticks(rotation=45)
@@ -70,10 +82,11 @@ def plot_avg_num_messages_per_user(df: pd.DataFrame) -> None:
 
 def analyze_data():
     data = prep_data(df)
+    plot_total_cost_per_user(data)
+    plot_average_cost_per_user(data)
     plot_avg_num_messages_per_user(data)
     plot_avg_cost_per_success(data)
     plot_ratio_of_successes_per_user(data)
-    plot_avg_num_messages_per_user(data)
 
 
 if __name__ == "__main__":
