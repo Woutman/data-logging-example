@@ -29,7 +29,7 @@ def generate_messages(user_instructions: str, message_history: list[dict[str, st
 
         output_messages = [{"role": "system", "content": INSTRUCTIONS_CHATBOT}] + message_history[1:] + [{"role": "user", "content": client_input}]
 
-    print(f"USER: {client_input}")
+    # print(f"USER: {client_input}")
     return output_messages
 
 
@@ -49,26 +49,31 @@ def simulate_conversation(user: User) -> tuple[list[dict[str, str]], list[Comple
     
     usages = list()
     message_history = list()
-    gpt_output = ""
-    i = 0
     unending_conversation_cutoff = 5
-    while gpt_output != "DONE" and i < unending_conversation_cutoff:
+    for _ in range(unending_conversation_cutoff):
         message_history = generate_messages(user_instructions=user.instructions, message_history=message_history)
 
         gpt_output, usage = query_gpt(messages=message_history)
-        print(f"GPT:  {gpt_output}")
+        # print(f"GPT:  {gpt_output}")
         usages.append(usage)
 
         message_history.append({"role": "assistant", "content": gpt_output})
-        i += 1
+        
+        if gpt_output == "DONE":
+            break
     
     return message_history, usages
 
 
 def main():
+    import random
+
     user_count = 10
     users = create_users(user_count)
-    simulate_conversation(user=users[9])
+
+    for _ in range(90):
+        user = users[random.randint(0, user_count - 1)]
+        simulate_conversation(user=user)
 
 
 if __name__ == "__main__":

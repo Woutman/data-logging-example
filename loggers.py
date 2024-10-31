@@ -5,7 +5,7 @@ import pandas as pd
 
 path_to_data = "data/data.csv"
 try:
-    df = pd.read_csv(path_to_data)
+    df = pd.read_csv(path_to_data, index_col=0)
 except FileNotFoundError:
     columns = ["id", "username", "input_tokens", "output_tokens", "success", "messages"]
     df = pd.DataFrame(columns=columns)
