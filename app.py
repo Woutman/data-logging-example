@@ -3,8 +3,8 @@ import copy
 from openai.types import CompletionUsage
 
 from users import create_users, User
-from gpt_interface import query_gpt
-from gpt_instructions import INSTRUCTIONS_CHATBOT
+from gpt.gpt_interface import query_gpt
+from gpt.gpt_instructions import INSTRUCTIONS_CHATBOT
 
 
 def generate_messages(user_instructions: str, message_history: list[dict[str, str]] | None) -> list[dict[str, str]]:

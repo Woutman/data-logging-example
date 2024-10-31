@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import math
 
-from gpt_instructions import INSTRUCTIONS_HELPFUL_CLIENT, INSTRUCTIONS_LOST_CLIENT, INSTRUCTIONS_UNHELPFUL_CLIENT
+from gpt.gpt_instructions import INSTRUCTIONS_HELPFUL_CLIENT, INSTRUCTIONS_LOST_CLIENT, INSTRUCTIONS_UNHELPFUL_CLIENT
 
 @dataclass
 class User:
