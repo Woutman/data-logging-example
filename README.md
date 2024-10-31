@@ -29,7 +29,7 @@ This repository shows an example of logging relevant data of a chatbot conversat
 ## Usage
 
 ### Conversation Simulation
-At the bottom of simulation.py, set the user_count and num_simulations variables. Then run ```sh python simulation.py``` to run the simulations.
+At the bottom of simulation.py, set the user_count and num_simulations variables. Then run ```python simulation.py``` to run the simulations.
 
 ### Data Analysis
-Run ```sh python data_analysis.py```to generate plots for Total Cost per User, Average Cost per User, Average Number of Messages per User, Average Cost per Success and Failure, and Ratio of Successes to Failures per User.
+Run ```python data_analysis.py```to generate plots for Total Cost per User, Average Cost per User, Average Number of Messages per User, Average Cost per Success and Failure, and Ratio of Successes to Failures per User.
