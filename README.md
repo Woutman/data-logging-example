@@ -30,6 +30,7 @@ This repository shows an example of logging and analysing relevant data of chatb
 
 ### Conversation Simulation
 At the bottom of simulation.py, set the user_count and num_simulations variables. Then run ```python simulation.py``` to run the simulations.
+A dataset based on 100 simulations is already included in the repository.
 
 ### Data Analysis
 Run ```python data_analysis.py```to generate plots for Total Cost per User, Average Cost per User, Average Number of Messages per User, Average Cost per Success and Failure, and Ratio of Successes to Failures per User.
